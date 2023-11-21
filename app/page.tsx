@@ -4,10 +4,10 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas, extend } from "@react-three/fiber";
 // import Plane from "../galaxy01/Plane";
 
-import Galaxy from "../galaxy01/Galaxy";
+// import Galaxy from "../galaxy01/Galaxy";
 import { useControls } from "leva";
-import { Stars } from "@react-three/drei";
-extend({ Stars });
+// import { Stars } from "@react-three/drei";
+// extend({ Stars });
 
 export default function Home() {
   // let spiralStars = [];
@@ -30,7 +30,7 @@ export default function Home() {
       <color attach="background" args={["#000000"]} />
       <OrbitControls />
       {/* <Plane /> */}
-      <Galaxy />
+      {/* <Galaxy /> */}
     </Canvas>
   );
 }
