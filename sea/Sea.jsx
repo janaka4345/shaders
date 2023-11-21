@@ -25,7 +25,7 @@ export default function Sea() {
 
           float elevation=sin(modelPosition.x*4.0)*
                             sin(modelPosition.z*1.5)*
-                            0.2;
+                            uBigWaveElevation;
           modelPosition.y+=elevation;
   
   
@@ -55,7 +55,10 @@ export default function Sea() {
   return (
     <mesh rotation={[-Math.PI * 0.5, 0, 0]}>
       <planeGeometry args={[2, 2, 128, 128]} />
-      <seaShaderMaterial side={DoubleSide} />
+      <seaShaderMaterial
+        side={DoubleSide}
+        uBigWaveElevation={parameters.elevation}
+      />
     </mesh>
   );
 }
