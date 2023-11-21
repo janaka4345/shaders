@@ -10,21 +10,21 @@ import { Stars } from "@react-three/drei";
 extend({ Stars });
 
 export default function Home() {
-  let spiralStars = [];
-  useEffect(() => {
-    for (let i = 0; i < 5000; i++) {
-      const angle = i * 0.1;
-      const radius = i * 0.01;
-      const height = i * 0.01;
+  // let spiralStars = [];
+  // useEffect(() => {
+  //   for (let i = 0; i < 5000; i++) {
+  //     const angle = i * 0.1;
+  //     const radius = i * 0.01;
+  //     const height = i * 0.01;
 
-      const x = radius * Math.cos(angle);
-      const y = 0;
-      const z = radius * Math.sin(angle);
+  //     const x = radius * Math.cos(angle);
+  //     const y = 0;
+  //     const z = radius * Math.sin(angle);
 
-      spiralStars.push([x, y, z]);
-      console.log(spiralStars);
-    }
-  }, []);
+  //     spiralStars.push([x, y, z]);
+  //     console.log(spiralStars);
+  //   }
+  // }, []);
   return (
     <Canvas camera={{ position: [0, 6, 14], fov: 42 }}>
       <color attach="background" args={["#000000"]} />

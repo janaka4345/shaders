@@ -1,10 +1,10 @@
 import { useControls } from "leva";
 import { useMemo } from "react";
-import { AdditiveBlending } from "three";
+import { AdditiveBlending, Color } from "three";
 import { useControls } from "leva";
 
 import { extend } from "@react-three/fiber";
-
+console;
 import { Stars } from "@react-three/drei";
 extend({ Stars });
 export default function Galaxy() {
@@ -35,9 +35,13 @@ export default function Galaxy() {
     outsideColor: "#1b3984",
   });
 
-  const positions = useMemo(() => {
+  const { position, colors } = useMemo(() => {
     // console.log("hi");
     const position = new Float32Array(parameters.count * 3);
+    const colors = new Float32Array(parameters.count * 3);
+
+    const colorInside = new Color(parameters.insideColor);
+    const colorOutside = new Color(parameters.outsideColor);
     for (let i = 0; i < parameters.count; i++) {
       const i3 = i * 3;
 
@@ -66,8 +70,15 @@ export default function Galaxy() {
       position[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
       position[i3 + 1] = randomY;
       position[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+      const mixedColor = colorInside.clone();
+      mixedColor.lerp(colorOutside, radius / parameters.radius);
+
+      colors[i3] = mixedColor.r;
+      colors[i3 + 1] = mixedColor.g;
+      colors[i3 + 2] = mixedColor.b;
     }
-    return position;
+    return { position, colors };
   }, []);
   return (
     <points>
@@ -76,14 +87,22 @@ export default function Galaxy() {
           attach="attributes-position"
           count={parameters.count}
           itemSize={3}
-          array={positions}
+          array={position}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={parameters.count}
+          itemSize={3}
+          array={colors}
         />
       </bufferGeometry>
       <pointsMaterial
+        // color={colors}
         size={parameters.size}
         sizeAttenuation={true}
         depthWright={false}
         blending={AdditiveBlending}
+        vertexColors={true}
       />
     </points>
   );
